@@ -14,6 +14,7 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958) and [ADI](ht
     + [1.2 Understanding the Data](#12-understanding-the-data)
 - [2.0 Data Handling](#20-data-handling)
 - [3.0 Analysis](#30-analysis)
+    + [3.1 Geopandas](#31-geopandas)
 - [4.0 Plotting](#40-plotting)
 - [5.0 ](#40-)
 - [6.0 Final Words](#60-final-words)
@@ -24,15 +25,15 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958) and [ADI](ht
 
 This guide was written in Python 2.7.
 
-### 0.1 Python & Pip
+### 0.1 Python and Pip
 
 Download [Python](https://www.python.org/downloads/) and [Pip](https://pip.pypa.io/en/stable/installing/).
 
 ### 0.2 Libraries
 
 ```
-pip install geopandas
 pip install geojsonio
+pip install geopandas
 pip install shapely
 ```
 
@@ -40,11 +41,29 @@ pip install shapely
 
 ### 1.1 What is Geospatial Data Analysis? 
 
+Geospatial analysis involves applying statistical analysis to data which has a geographical aspect. 
+
 ### 1.2 Understanding the Data
+
 
 ## 2.0 Data Handling
 
+
+
 ## 3.0 Analysis
+
+#### 3.1 Geojsonio
+
+``` python
+from geojsonio import display
+
+with open('map.geojson') as f:
+    contents = f.read()
+    display(contents)
+
+```
+
+#### 3.2 Geopandas
 
 ``` python
 import geopandas as gp
