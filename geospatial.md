@@ -11,12 +11,16 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958) and [ADI](ht
     + [0.3 Other](#03-other)
 - [1.0 Background](#10-background)
     + [1.1 What is Geospatial Data Analysis](#11-what-is-geospatial-data-analysis)
-    + [1.2 Understanding the Data](#12-understanding-the-data)
-- [2.0 Data Handling](#20-data-handling)
+- [2.0 Understanding the Data](#20-understanding-the-data)
+    + [2.1 Data Types](#21-data-types)
+        * [2.1.1 Point](#211-point)
+        * [2.1.2 Polygon](#212-polygon)
 - [3.0 Analysis](#30-analysis)
-    + [3.1 Geopandas](#31-geopandas)
+    + [3.1 Geojsonio](#31-geojsonio)
+    + [3.2 Geopandas](#32-geopandas)
+    + [3.3 Shapely](33-shapely)
 - [4.0 Plotting](#40-plotting)
-- [5.0 ](#40-)
+- [5.0 ](#50-)
 - [6.0 Final Words](#60-final-words)
     + [6.1 Resources](#61-resources)
 
@@ -43,11 +47,14 @@ pip install shapely
 
 Geospatial analysis involves applying statistical analysis to data which has a geographical aspect. 
 
-### 1.2 Understanding the Data
 
+## 2.0 Understanding the Data
 
-## 2.0 Data Handling
+### 2.1 Data Types
 
+### 2.1.1 Point
+
+### 2.1.2 Polygon
 
 
 ## 3.0 Analysis
@@ -66,12 +73,14 @@ with open('map.geojson') as f:
 #### 3.2 Geopandas
 
 ``` python
-import geopandas as gp
+import geopandas as gpd
+import geojsonio
 
-geo = [] 
-segs = gp.GeoDataFrame.from_features(geo)
-segs.head()
+states = gpd.read_file('states.geojson')
+geojsonio.display(states.to_json())
 ```
+
+### 3.3 Shapely
 
 ## 4.0 Plotting
 
