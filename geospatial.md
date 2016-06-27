@@ -52,10 +52,15 @@ Geospatial analysis involves applying statistical analysis to data which has a g
 
 ### 2.1 Data Types
 
+Spatial data consists of location observations. Spatial data identifies features and positions on the Earth’s surface and is ultimately how we put our observations on the map.
+
 ### 2.1.1 Point
+
+A Point is a 0-dimensional object representing a single location. Put more simply, they're XY coordinates.
 
 ### 2.1.2 Polygon
 
+A Polygon is a two-dimensional surface stored as a sequence of points defining the exterior.
 
 ## 3.0 Analysis
 
