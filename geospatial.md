@@ -26,13 +26,14 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958) and [ADI](ht
     + [2.2 Geopandas](#32-geopandas)
 - [3.0 Plotly](#30-plotly)
 - [4.0 Shapely & Descartes](#50-Shapely-Descartes)
-- [5.0 Final Words](#60-final-words)
-    + [5.1 Resources](#61-resources)
+- [5.0 Final Words](#50-final-words)
+    + [5.1 Resources](#51-resources)
+    + [5.2 Mini Courses](#52-mini-courses)
 
 
 ## 0.0 Setup
 
-This guide was written in Python 2.7.
+This guide was written in Python 3.5
 
 ### 0.1 Python and Pip
 
@@ -333,3 +334,19 @@ Most of these techniques are interchangeable in R, but Python is one of the best
 
 [GeoJSON](http://geojson.org/) <br>
 [OpenStreetMap](https://www.openstreetmap.org/#map=5/51.500/-0.100)
+
+
+### 5.2 Mini Courses
+
+Learn about courses [here](www.byteacademy.co/all-courses/data-science-mini-courses/).
+
+[Python 101: Data Science Prep](https://www.eventbrite.com/e/python-101-data-science-prep-tickets-30980459388) <br>
+[Intro to Data Science & Stats with R](https://www.eventbrite.com/e/data-sci-109-intro-to-data-science-statistics-using-r-tickets-30908877284) <br>
+[Data Acquisition Using Python & R](https://www.eventbrite.com/e/data-sci-203-data-acquisition-using-python-r-tickets-30980705123) <br>
+[Data Visualization with Python](https://www.eventbrite.com/e/data-sci-201-data-visualization-with-python-tickets-30980827489) <br>
+[Fundamentals of Machine Learning and Regression Analysis](https://www.eventbrite.com/e/data-sci-209-fundamentals-of-machine-learning-and-regression-analysis-tickets-30980917759) <br>
+[Natural Language Processing with Data Science](https://www.eventbrite.com/e/data-sci-210-natural-language-processing-with-data-science-tickets-30981006023) <br>
+[Machine Learning with Data Science](https://www.eventbrite.com/e/data-sci-309-machine-learning-with-data-science-tickets-30981154467) <br>
+[Databases & Big Data](https://www.eventbrite.com/e/data-sci-303-databases-big-data-tickets-30981182551) <br>
+[Deep Learning with Data Science](https://www.eventbrite.com/e/data-sci-403-deep-learning-with-data-science-tickets-30981221668) <br>
+[Data Sci 500: Projects](https://www.eventbrite.com/e/data-sci-500-projects-tickets-30981330995)
