@@ -48,6 +48,29 @@ pip install shapely
 pip install plotly
 ```
 
+### 0.3 Virtual Environment
+
+If you'd like to work in a virtual environment, you can set it up as follows: 
+```
+pip3 install virtualenv
+virtualenv your_env
+```
+And then launch it with: 
+```
+source your_env/bin/activate
+```
+
+To execute the visualizations in matplotlib, do the following:
+
+```
+cd ~/.matplotlib
+vim matplotlibrc
+```
+
+And then, write `backend: TkAgg` in the file. Now you should be set up with your virtual environment!
+
+Cool, now we're ready to start!
+
 ### 0.3 Plotly
 
 Sign up and make an account [here](https://plot.ly).
@@ -144,6 +167,7 @@ import fiona, pylab
 ```
 
 These are some coordinates we'll need to plot the path of a flight from San Francisco to New York. 
+
 ``` python 
 latlons = [(37.766, -122.43), (39.239, -114.89), (38.820, -104.82), (38.039, -97.96),
     (38.940, -92.32), (39.156, -86.53), (40.749, -84.08), (41.494, -81.66),
@@ -193,6 +217,7 @@ fig.gca().plot(*ls.xy, color='#FFFFFF')
 ```
 
 This is where we set the outlines to a separate color. 
+
 ``` python
 for x, y in path:
     p = Point(x, y)
@@ -232,12 +257,10 @@ And so here we begin. First, as always, we import the needed modules. From there
 
 
 ``` python
-
 import plotly.plotly as py
 from plotly.graph_objs import *
 
 py.sign_in('username', 'api_key')
-
 ```
 
 Plotly supports three types of maps - chloropeth, atlas maps, and satelite maps. Using data from the electoral college, we'll plot a map of the United States with a color scale. The dark the color, the greater number of votes.
@@ -263,7 +286,6 @@ In the same 'Data' call, we feed in parameters that will be our sliding scale.
 Again, continuing the parameters, we add labels for each state.  
 
 ``` python
-
         locationmode='USA-states',
         locations=['DE', 'VT', 'ND', 'SD', 'MT', 'WY', 'AK', 'DC', 'NH', 'RI', 'ME', 'ID', 'HI', 'WV', 'NE', 'NM', 'MS', 'AR', 'IA', 'KS', 'NV', 'UT', 'CT', 'OR', 'OK', 'KY', 'LA', 'SC', 'AL', 'CO', 'MD', 'MO', 'WI', 'MN', 'MA', 'TN', 'IN', 'AZ', 'WA', 'VA', 'NJ', 'NC', 'GA', 'MI', 'OH', 'PA', 'IL', 'NY', 'FL', 'TX', 'CA'],
         marker=Marker(
@@ -300,8 +322,8 @@ data = Data([
         text=['DE', 'VT', 'ND', 'SD', 'MT', 'WY', 'AK', 'DC', 'NH', 'RI', 'ME', 'ID', 'HI', 'WV', 'NE', 'NM', 'MS', 'AR', 'IA', 'KS', 'NV', 'UT', 'CT', 'OR', 'OK', 'KY', 'LA', 'SC', 'AL', 'CO', 'MD', 'MO', 'WI', 'MN', 'MA', 'TN', 'IN', 'AZ', 'WA', 'VA', 'NJ', 'NC', 'GA', 'MI', 'OH', 'PA', 'IL', 'NY', 'FL', 'TX', 'CA']
     )
 ])
-
 ```
+
 And so now, we've formatted our data. But of course, there needs to be a layout for our code to follow. Luckily, we can just use the Layout method. As parameters, we feed in color schemes and labels. 
 
 ``` python
