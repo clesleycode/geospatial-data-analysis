@@ -8,7 +8,8 @@ Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958) and [ADI](ht
 - [0.0 Setup](#00-setup)
     + [0.1 Python and Pip](#01-python--pip)
     + [0.2 Libraries](#02-libraries)
-    + [0.3 Other](#03-other)
+    + [0.3 Virtual Environment](#03-virtual-environments)
+    + [0.4 Plotly](#04-plotly)
 - [1.0 Background](#10-background)
     + [1.1 What is Geospatial Data Analysis](#11-what-is-geospatial-data-analysis)
     + [1.2 Why is Geospatial Analysis Important?](#12-why-is-geospatial-analysis-important)
@@ -42,10 +43,10 @@ Download [Python](https://www.python.org/downloads/) and [Pip](https://pip.pypa.
 ### 0.2 Libraries
 
 ```
-pip install geojsonio
-pip install geopandas
-pip install shapely
-pip install plotly
+pip3 install geojsonio
+pip3 install geopandas
+pip3 install shapely
+pip3 install plotly
 ```
 
 ### 0.3 Virtual Environment
@@ -71,7 +72,7 @@ And then, write `backend: TkAgg` in the file. Now you should be set up with your
 
 Cool, now we're ready to start!
 
-### 0.3 Plotly
+### 0.4 Plotly
 
 Sign up and make an account [here](https://plot.ly).
 
