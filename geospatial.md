@@ -1,7 +1,9 @@
 Intro to Geospatial Data Analysis in Python 
 ==================
 
-Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958) and [ADI](https://adicu.com)
+Brought to you by [Lesley Cordero](http://www.columbia.edu/~lc2958), [Byte Academy](byteacademy.co), and [ADI](https://adicu.com). 
+
+You can also find this curriculum on [Medium](https://medium.com/@lesleycordero/intro-to-geospatial-data-analysis-in-python-cc500be92346#.xnddlgwqt).
 
 ## Table of Contents
 
