@@ -48,6 +48,7 @@ Download [Python](https://www.python.org/downloads/) and [Pip](https://pip.pypa.
 pip3 install geojsonio
 pip3 install geopandas
 pip3 install shapely
+pip3 install descartes 
 pip3 install plotly
 ```
 
