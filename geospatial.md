@@ -8,10 +8,11 @@ You can also find this curriculum on [Medium](https://medium.com/@lesleycordero/
 ## Table of Contents
 
 - [0.0 Setup](#00-setup)
-    + [0.1 Python and Pip](#01-python--pip)
+    + [0.1 Python and Pip](#01-python-and-pip)
     + [0.2 Libraries](#02-libraries)
     + [0.3 Virtual Environment](#03-virtual-environments)
     + [0.4 Plotly](#04-plotly)
+    + [0.5 Data](#05-data)
 - [1.0 Background](#10-background)
     + [1.1 What is Geospatial Data Analysis](#11-what-is-geospatial-data-analysis)
     + [1.2 Why is Geospatial Analysis Important?](#12-why-is-geospatial-analysis-important)
@@ -24,14 +25,15 @@ You can also find this curriculum on [Medium](https://medium.com/@lesleycordero/
         * [1.4.2 Polygon](#142-polygon)
         * [1.4.3 Curve](#143-curve)
         * [1.4.4 Surface](#144-surface)
-- [2.0 Geojsonio & Geopandas](#30-geojsonio-geopandas)
+- [2.0 Geojsonio and Geopandas](#30-geojsonio-and-geopandas)
     + [2.1 Geojsonio](#31-geojsonio)
     + [2.2 Geopandas](#32-geopandas)
-- [3.0 Plotly](#30-plotly)
-- [4.0 Shapely & Descartes](#50-Shapely-Descartes)
-- [5.0 Final Words](#50-final-words)
-    + [5.1 Resources](#51-resources)
-    + [5.2 Mini Courses](#52-mini-courses)
+- [3.0 Shapely and Descartes](#30-Shapely-and-Descartes)
+- [4.0 Plotly](#40-plotly)
+- [5.0 Google Maps](#50-google-maps)
+- [6.0 Final Words](#60-final-words)
+    + [6.1 Resources](#61-resources)
+    + [6.2 More Stuff](#62-more-stuff)
 
 
 ## 0.0 Setup
@@ -74,16 +76,11 @@ vim matplotlibrc
 
 And then, write `backend: TkAgg` in the file. Now you should be set up with your virtual environment!
 
-
-### 0.4 Google Maps
-
-We'll be working with the google maps API so go ahead and follow the directions [here](https://developers.google.com/maps/documentation/geocoding/get-api-key) to generate an API key for yourself. 
-
-### 0.5 Plotly
+### 0.4 Plotly
 
 We'll be using plotly for some of our visualizations, so sign up and make an account [here](https://plot.ly).
 
-### 0.6 Data
+### 0.5 Data
 
 You can download all the data for this workshops [here](https://drive.google.com/drive/folders/0B4I1qITaz894MGlwVWRWQ0pEXzg). 
 
@@ -140,7 +137,7 @@ A Polygon is a two-dimensional surface stored as a sequence of points defining t
 
  Surfaces have infinite many interior, exterior, and boundary points.
 
-## 2.0 Geojsonio & Geopandas 
+## 2.0 Geojsonio and Geopandas 
 
 GeoJSON is a specific format for representing a variety of geographic objects. It supports the following geometry types: Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection. 
 
@@ -168,9 +165,9 @@ states = gpd.read_file('states.geojson')
 geojsonio.display(states.to_json())
 ```
 
-## 3.0 Shapely & Descartes
+## 3.0 Shapely and Descartes
 
-Shapely converts feature geometry into GeoJSON structure and contains tools for geometry manipulations. This module works with three of the types of geometric objects we discussed before: points, curves, and surfaces.
+Shapely converts feature geometry into GeoJSON structure and contains tools for geometry manipulations. This module works with three of the types of geometric objects we discussed before: points, curves, and surfaces. Descartes works off of shapely for visualizing geometric objects!
 
 First, we import the needed modules. 
 
@@ -368,33 +365,60 @@ fig = Figure(data=data, layout=layout)
 plot_url = py.plot(fig)
 ```
 
-## 5.0 Google Maps API 
+## 5.0 Google Maps  
+
+The Google Maps API is an awesome resource when working on a project involving any sort of map visualization or analysis. Its one downside is that there is a query limit, which is why we'll be working with a very small dataset.
+
+We'll be using several modules for this exercise! (You'll see soon enough that these modules are powerful enough that we write fewer lines of code than we import)
 
 ``` python
 import pandas as pd 
 import geocoder 
-import googlemaps
 from shapely.geometry import Point
 from geopandas import GeoDataFrame
 from geojson import Feature, FeatureCollection
 from geojsonio import display
 ```
 
+Here we use `pandas` to open a CSV with the names and addresses of the 4 local boba shops from this location. `Googlemaps` is what will allow us to eventually retrieve the coordinates of each boba place, so be sure to have your API key ready: 
+
 ``` python
-gmaps = googlemaps.Client(key='your_key')
 boba = pd.read_csv('./boba.csv')
 ```
+
+Now, let's take a look at our boba dataframe:
+
+``` 
+             Name:                           Address        
+0        Boba Guys  11 Waverly Pl New York, NY 10002    
+1          Jupioca   123 W 3rd St New York, NY 10012    
+2      Kung Fu Tea  31 Waverly Pl New York, NY 10003    
+3  Vivi Bubble Tea    65 W 8th St New York, NY 10011 
+```
+
+So as I said, this dataframe contains the name and addresses of 4 bubble tea places. From these addresses, we want to create 2 <b>new</b> columns containing the latitude and longitudes of each. 
+
+Notice that we have two apply functions to transform the address into the geometric types we want. The first apply function uses`geocoder.google` to encode the address as geometric object. The second apply function pulls the latitude or longitude attribute of that object. 
 
 ``` python
 boba['Lat'] = boba['Address'].apply(geocoder.google).apply(lambda x: x.lat)
 boba['Longitude'] = boba['Address'].apply(geocoder.google).apply(lambda x: x.lng)
+```
+
+Now that we have the latitude and longitude of each bubble tea place, we can make another new column to store the points using `shapely`. 
+
+``` python
 boba['Coordinates'] = [Point(xy) for xy in zip(boba.Longitude, boba.Lat)]
 ```
+
+The `crs` parameter is simply a reference to what kind of coordinate system we're using. Once we've declared those, we can convert the data we've got into a `GeoDataFrame`. This is an important step because it then allows us to very easily convert it to geojson. 
 
 ``` python
 crs = {'init': 'epsg:4326'}
 geo_df = GeoDataFrame(boba['Name:'], crs=crs, geometry=list(boba['Coordinates']))
 ```
+
+Above, `boba['Name:']` is the first parameter because it will serve as provided information in the visualization. The geometry parameter is a reference to the coordinate data, converted to a list. Finally, we can convert it to geojson and display it using geojsonio!
 
 ``` python
 display(geo_df.to_json())
@@ -407,20 +431,19 @@ Most of these techniques are interchangeable in R, but Python is one of the best
 ### 6.1 Resources
 
 [GeoJSON](http://geojson.org/) <br>
-[OpenStreetMap](https://www.openstreetmap.org/#map=5/51.500/-0.100)
+[OpenStreetMap](https://www.openstreetmap.org/#map=5/51.500/-0.100) <br>
 [CartoDB](https://carto.com/)
 
-### 6.2 Mini Courses
+### 6.2 More Stuff
 
-Learn about courses [here](www.byteacademy.co/all-courses/data-science-mini-courses/).
+Liked my talk? Leave me a review [here](https://coursehorse.com/nyc/schools/tech/byte-academy/review)! :) 
 
-[Python 101: Python for Data Science](https://www.eventbrite.com/e/python-101-python-for-data-science-tickets-31375137882) <br>
-[Intro to Data Science & Stats with R](https://www.eventbrite.com/e/data-sci-109-intro-to-data-science-statistics-using-r-tickets-30908877284) <br>
-[Data Acquisition Using Python & R](https://www.eventbrite.com/e/data-sci-203-data-acquisition-using-python-r-tickets-30980705123) <br>
-[Data Visualization with Python](https://www.eventbrite.com/e/data-sci-201-data-visualization-with-python-tickets-30980827489) <br>
-[Fundamentals of Machine Learning and Regression Analysis](https://www.eventbrite.com/e/data-sci-209-fundamentals-of-machine-learning-and-regression-analysis-tickets-30980917759) <br>
-[Natural Language Processing with Data Science](https://www.eventbrite.com/e/data-sci-210-natural-language-processing-with-data-science-tickets-30981006023) <br>
-[Machine Learning with Data Science](https://www.eventbrite.com/e/data-sci-309-machine-learning-with-data-science-tickets-30981154467) <br>
-[Databases & Big Data](https://www.eventbrite.com/e/data-sci-303-databases-big-data-tickets-30981182551) <br>
-[Deep Learning with Data Science](https://www.eventbrite.com/e/data-sci-403-deep-learning-with-data-science-tickets-30981221668) <br>
-[Data Sci 500: Projects](https://www.eventbrite.com/e/data-sci-500-projects-tickets-30981330995)
+[Byte Academy](http://byteacademy.co/) is a small start-up in Midtown Manhattan that focuses on computer science education. More specifically, Byte frequently hosts bootcamps and workshops for students and engineers and provided learning resources like [ByteDev](http://bytedev.co/) and Byte App. 
+
+[My Website](http://www.columbia.edu/~lc2958/) <br>
+[My Data Blog](http://lesley2958.github.io/) <br>
+[Linkedin](https://www.linkedin.com/in/lesleycordero/) <br>
+[Github](https://github.com/lesley2958) <br>
+[Medium](https://medium.com/@lesleycordero)<br>
+[Twitter](https://twitter.com/lesleyclovesyou) <br>
+[Quora](https://www.quora.com/profile/Lesley-Cordero)
