@@ -40,7 +40,7 @@ This guide was written in Python 3.5
 
 ### 0.1 Python and Pip
 
-Download [Python](https://www.python.org/downloads/) and [Pip](https://pip.pypa.io/en/stable/installing/).
+If you haven't already, download [Python](https://www.python.org/downloads/) and [Pip](https://pip.pypa.io/en/stable/installing/).
 
 ### 0.2 Libraries
 
@@ -50,6 +50,7 @@ pip3 install geopandas
 pip3 install shapely
 pip3 install descartes 
 pip3 install plotly
+pip3 install fiona
 ```
 
 ### 0.3 Virtual Environment
@@ -75,15 +76,19 @@ And then, write `backend: TkAgg` in the file. Now you should be set up with your
 
 Cool, now we're ready to start!
 
-### 0.4 Plotly
+### 0.4 Google Maps
 
-Sign up and make an account [here](https://plot.ly).
+We'll be working with the google maps API so go ahead and follow the directions [here](https://developers.google.com/maps/documentation/geocoding/get-api-key) to generate an API key for yourself. 
+
+### 0.5 Plotly
+
+We'll be using plotly for some of our visualizations, so sign up and make an account [here](https://plot.ly).
 
 ## 1.0 Background
 
 ### 1.1 What is Geospatial Data Analysis? 
 
-Geospatial analysis involves applying statistical analysis to data which has a geographical aspect. 
+Geospatial analysis involves applying statistical analysis to data which has a geographical or geometrical aspect. In this tutorial we'll review the basics of acquiring geospatial data, handling it, and visualizing it. 
 
 ### 1.2 Why is Geospatial Analysis Important?
 
@@ -95,15 +100,18 @@ Before we get into the specifics, first we'll review some terminology that you s
 
 #### 1.3.1 Interior Set
 
-An Interior Set is the set of points contained within a geometrical object. 
+An Interior Set is the set of points contained within a geometrical object. If a geometrical object lies on the x-y axis, it contains points inside that object. For example, in the following image, there are two geometric objects and each one contains its own set of interior points. In ABC, its interior set include points like (3,1).
+
+![alt text](https://mathbitsnotebook.com/Algebra1/FunctionGraphs/refX2.jpg "Logo Title Text 1")
+
 
 #### 1.3.2 Boundary Set
 
-A Boundary Set is the set of points which form the outline of a geometrical object. Boundary Sets and Interior Sets have no intersection. 
+A Boundary Set is the set of points which form the outline of a geometrical object. Boundary Sets and Interior Sets have no intersection. From the previous image, any point that falls on the lines forming the triangles is in that object's boundary set. In ABC, some of those points include (1,3), (5,2), and (4, -1). 
 
 #### 1.3.3 Exterior Set
 
-An Exterior Set is the set of all other points. 
+An Exterior Set is the set of all other points. For example, the point (2,-3) doesn't fall within any geometric object in this example, making it an exterior point. 
 
 ### 1.4 Data Types
 
@@ -111,19 +119,15 @@ Spatial data consists of location observations. Spatial data identifies features
 
 #### 1.4.1 Point
 
-A Point is a zero-dimensional object representing a single location. Put more simply, they're XY coordinates.
-
-Because points are zero-dimensional, they contain exactly one interior point, 0 boundary points, and infinite many exterior points. 
+A Point is a zero-dimensional object representing a single location. Put more simply, they're XY coordinates. Because points are zero-dimensional, they contain exactly one interior point, 0 boundary points, and infinite many exterior points. 
 
 #### 1.4.2 Polygon
 
-A Polygon is a two-dimensional surface stored as a sequence of points defining the exterior.
+A Polygon is a two-dimensional surface stored as a sequence of points defining the exterior. The example from the previous section is an example of a polygon! 
 
 #### 1.4.3 Curve
 
  A Curve has an interior set consisting of the infinitely many points along its length, a boundary set consisting of its two end points, and an exterior set of all other points. 
-
- Curves contain an infinite number of interior points, exactly two boundary points, and infinite many exterior points. 
  
 #### 1.4.4 Surface
 
@@ -133,9 +137,11 @@ A Polygon is a two-dimensional surface stored as a sequence of points defining t
 
 ## 2.0 Geojsonio & Geopandas 
 
+GeoJSON is a specific format for representing a variety of geographic objects. It supports the following geometry types: Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon, and GeometryCollection. 
+
 ### 2.1 Geojsonio
 
-Geojsonio converts geographic data to geojson formats. Here we read in the json of a point and plot it on an interactive map. 
+Geojsonio is a tool used for visualizing geojson. Here we read in the geojson of a point and plot it on an interactive map. 
 
 ``` python
 from geojsonio import display
@@ -147,7 +153,7 @@ with open('map.geojson') as f:
 
 ### 2.2 Geopandas
 
-GeoPandas is an open source project to make working with geospatial data in python easier by extending the datatypes used by pandas to allow spatial operations on geometric types. So now that we know what polygons are, we can set up a map of the United States using data of the coordates that shape each state. 
+GeoPandas is a python module used to make working with geospatial data in python easier by extending the datatypes used by pandas to allow spatial operations on geometric types. So now that we know what polygons are, we can set up a map of the United States using data of the coordinates that shape each state. 
 
 ``` python
 import geopandas as gpd
@@ -156,7 +162,6 @@ import geojsonio
 states = gpd.read_file('states.geojson')
 geojsonio.display(states.to_json())
 ```
-
 
 ## 3.0 Shapely & Descartes
 
@@ -227,8 +232,8 @@ for x, y in path:
     p = Point(x, y)
     spot = p.buffer(.1)
     x, y = spot.exterior.xy
-    pylab.fill(x, y, color='#cc6666', aa=True)
-    pylab.plot(x, y, color='#cc6666', aa=True, lw=1.0)
+    plt.fill(x, y, color='#cc6666', aa=True)
+    plt.plot(x, y, color='#cc6666', aa=True, lw=1.0)
 ```
 
 And finally, we save this image we have created to a file with a png extension. 
@@ -236,6 +241,7 @@ And finally, we save this image we have created to a file with a png extension.
 fig.gca().axis([-125, -65, 25, 50])
 fig.gca().axis('off')
 fig.savefig("states.png", facecolor='#F2F2F2', edgecolor='#F2F2F2')
+
 ```
 
 ## 4.0 Plotly
@@ -267,7 +273,7 @@ from plotly.graph_objs import *
 py.sign_in('username', 'api_key')
 ```
 
-Plotly supports three types of maps - chloropeth, atlas maps, and satelite maps. Using data from the electoral college, we'll plot a map of the United States with a color scale. The dark the color, the greater number of votes.
+Plotly supports three types of maps - chloropeth, atlas maps, and satelite maps. Using data from the electoral college, we'll plot a map of the United States with a color scale. The darker the color, the greater number of votes.
 
 So first, we load in the electoral college data. 
 
@@ -351,22 +357,26 @@ fig = Figure(data=data, layout=layout)
 plot_url = py.plot(fig)
 ```
 
+## 5.0 Google Maps API 
 
-## 5.0 Final Words
+
+
+
+## 6.0 Final Words
 
 Most of these techniques are interchangeable in R, but Python is one of the best suitable languages for geospatial analysis. Its modules and tools are built with developers in mind, making the transition into geospatial analysis must easier.
 
-### 5.1 Resources
+### 6.1 Resources
 
 [GeoJSON](http://geojson.org/) <br>
 [OpenStreetMap](https://www.openstreetmap.org/#map=5/51.500/-0.100)
+[CartoDB](https://carto.com/)
 
-
-### 5.2 Mini Courses
+### 6.2 Mini Courses
 
 Learn about courses [here](www.byteacademy.co/all-courses/data-science-mini-courses/).
 
-[Python 101: Data Science Prep](https://www.eventbrite.com/e/python-101-data-science-prep-tickets-30980459388) <br>
+[Python 101: Python for Data Science](https://www.eventbrite.com/e/python-101-python-for-data-science-tickets-31375137882) <br>
 [Intro to Data Science & Stats with R](https://www.eventbrite.com/e/data-sci-109-intro-to-data-science-statistics-using-r-tickets-30908877284) <br>
 [Data Acquisition Using Python & R](https://www.eventbrite.com/e/data-sci-203-data-acquisition-using-python-r-tickets-30980705123) <br>
 [Data Visualization with Python](https://www.eventbrite.com/e/data-sci-201-data-visualization-with-python-tickets-30980827489) <br>
