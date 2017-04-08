@@ -74,7 +74,6 @@ vim matplotlibrc
 
 And then, write `backend: TkAgg` in the file. Now you should be set up with your virtual environment!
 
-Cool, now we're ready to start!
 
 ### 0.4 Google Maps
 
@@ -83,6 +82,12 @@ We'll be working with the google maps API so go ahead and follow the directions 
 ### 0.5 Plotly
 
 We'll be using plotly for some of our visualizations, so sign up and make an account [here](https://plot.ly).
+
+### 0.6 Data
+
+You can download all the data for this workshops [here](https://drive.google.com/drive/folders/0B4I1qITaz894MGlwVWRWQ0pEXzg). 
+
+Cool, now we're ready to start!
 
 ## 1.0 Background
 
@@ -172,7 +177,8 @@ First, we import the needed modules.
 ``` python
 from shapely.geometry import shape, LineString, Point
 from descartes import PolygonPatch
-import fiona, pylab
+import fiona
+import matplotlib.pyplot as plt
 ```
 
 These are some coordinates we'll need to plot the path of a flight from San Francisco to New York. 
@@ -241,8 +247,13 @@ And finally, we save this image we have created to a file with a png extension.
 fig.gca().axis([-125, -65, 25, 50])
 fig.gca().axis('off')
 fig.savefig("states.png", facecolor='#F2F2F2', edgecolor='#F2F2F2')
-
 ```
+
+Which should get you something like this:
+
+![alt text](https://github.com/lesley2958/geospatial-data-analysis/blob/master/states.png?raw=true "Logo Title Text 1")
+
+
 
 ## 4.0 Plotly
 
@@ -359,8 +370,35 @@ plot_url = py.plot(fig)
 
 ## 5.0 Google Maps API 
 
+``` python
+import pandas as pd 
+import geocoder 
+import googlemaps
+from shapely.geometry import Point
+from geopandas import GeoDataFrame
+from geojson import Feature, FeatureCollection
+from geojsonio import display
+```
 
+``` python
+gmaps = googlemaps.Client(key='your_key')
+boba = pd.read_csv('./boba.csv')
+```
 
+``` python
+boba['Lat'] = boba['Address'].apply(geocoder.google).apply(lambda x: x.lat)
+boba['Longitude'] = boba['Address'].apply(geocoder.google).apply(lambda x: x.lng)
+boba['Coordinates'] = [Point(xy) for xy in zip(boba.Longitude, boba.Lat)]
+```
+
+``` python
+crs = {'init': 'epsg:4326'}
+geo_df = GeoDataFrame(boba['Name:'], crs=crs, geometry=list(boba['Coordinates']))
+```
+
+``` python
+display(geo_df.to_json())
+```
 
 ## 6.0 Final Words
 
