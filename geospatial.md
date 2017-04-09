@@ -52,6 +52,7 @@ pip3 install geopandas
 pip3 install shapely
 pip3 install descartes 
 pip3 install plotly
+pip3 install geocoder
 pip3 install fiona
 ```
 
@@ -358,7 +359,7 @@ layout = Layout(
 )
 ```
 
-And we're almost done! The last step is to simply construct the math and use plotly to actually display it. 
+And we're almost done! The last step is to simply construct the map and use plotly to actually display it. 
 
 ``` python
 fig = Figure(data=data, layout=layout)
@@ -369,7 +370,7 @@ plot_url = py.plot(fig)
 
 The Google Maps API is an awesome resource when working on a project involving any sort of map visualization or analysis. Its one downside is that there is a query limit, which is why we'll be working with a very small dataset.
 
-We'll be using several modules for this exercise! (You'll see soon enough that these modules are powerful enough that we write fewer lines of code than we import)
+We'll be using several modules for this exercise! 
 
 ``` python
 import pandas as pd 
@@ -380,7 +381,7 @@ from geojson import Feature, FeatureCollection
 from geojsonio import display
 ```
 
-Here we use `pandas` to open a CSV with the names and addresses of the 4 local boba shops from this location. `Googlemaps` is what will allow us to eventually retrieve the coordinates of each boba place, so be sure to have your API key ready: 
+Here we use `pandas` to open a CSV with the names and addresses of the 4 local boba shops from this location. `Googlemaps` is what will allow us to eventually retrieve the coordinates of each boba place:
 
 ``` python
 boba = pd.read_csv('./boba.csv')
