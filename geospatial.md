@@ -130,13 +130,13 @@ A Polygon is a two-dimensional surface stored as a sequence of points defining t
 
 #### 1.4.3 Curve
 
- A Curve has an interior set consisting of the infinitely many points along its length, a boundary set consisting of its two end points, and an exterior set of all other points. 
+A Curve has an interior set consisting of the infinitely many points along its length, a boundary set consisting of its two end points, and an exterior set of all other points. 
  
 #### 1.4.4 Surface
 
- A Surface has an interior set consisting of the infinitely many points within, a boundary set consisting of one or more Curves, and an exterior set of all other points.
+A Surface has an interior set consisting of the infinitely many points within, a boundary set consisting of one or more Curves, and an exterior set of all other points.
 
- Surfaces have infinite many interior, exterior, and boundary points.
+Surfaces have infinite many interior, exterior, and boundary points.
 
 ## 2.0 Geojsonio and Geopandas 
 
