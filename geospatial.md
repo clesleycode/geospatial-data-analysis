@@ -130,13 +130,13 @@ A Polygon is a two-dimensional surface stored as a sequence of points defining t
 
 #### 1.4.3 Curve
 
- A Curve has an interior set consisting of the infinitely many points along its length, a boundary set consisting of its two end points, and an exterior set of all other points. 
+A Curve has an interior set consisting of the infinitely many points along its length, a boundary set consisting of its two end points, and an exterior set of all other points. 
  
 #### 1.4.4 Surface
 
- A Surface has an interior set consisting of the infinitely many points within, a boundary set consisting of one or more Curves, and an exterior set of all other points.
+A Surface has an interior set consisting of the infinitely many points within, a boundary set consisting of one or more Curves, and an exterior set of all other points.
 
- Surfaces have infinite many interior, exterior, and boundary points.
+Surfaces have infinite many interior, exterior, and boundary points.
 
 ## 2.0 Geojsonio and Geopandas 
 
@@ -203,7 +203,7 @@ with fiona.collection("shapefiles/statesp020.shp") as features:
 fig = pylab.figure(figsize=(24, 12), dpi=180)
 ```
 
-Don't worry about this session too much, but it basically finds where the intersections occur to denote a dark outline. 
+Don't worry about this section too much, but it basically finds where the intersections occur to denote a dark outline. 
 
 ``` python
 for state in states:
@@ -241,6 +241,7 @@ for x, y in path:
 ```
 
 And finally, we save this image we have created to a file with a png extension. 
+
 ``` python
 fig.gca().axis([-125, -65, 25, 50])
 fig.gca().axis('off')
@@ -250,7 +251,6 @@ fig.savefig("states.png", facecolor='#F2F2F2', edgecolor='#F2F2F2')
 Which should get you something like this:
 
 ![alt text](https://github.com/lesley2958/geospatial-data-analysis/blob/master/states.png?raw=true "Logo Title Text 1")
-
 
 
 ## 4.0 Plotly
@@ -295,6 +295,7 @@ data = Data([
             title='Votes'
         ),
 ```
+
 In the same 'Data' call, we feed in parameters that will be our sliding scale. 
 
 ``` python
