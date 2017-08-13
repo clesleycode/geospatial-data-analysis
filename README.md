@@ -38,7 +38,7 @@ You can also find this curriculum on [Medium](https://medium.com/@lesleycordero/
 
 ## 0.0 Setup
 
-This guide was written in Python 3.5
+This guide was written in Python 3.6. 
 
 ### 0.1 Python and Pip
 
