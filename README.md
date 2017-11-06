@@ -176,7 +176,7 @@ First, we import the needed modules.
 from shapely.geometry import shape, LineString, Point
 from descartes import PolygonPatch
 import fiona
-import matplotlib.pyplot as plt
+import matplotlib.pylab as plt
 ```
 
 These are some coordinates we'll need to plot the path of a flight from San Francisco to New York. 
@@ -200,7 +200,7 @@ So now we want to display this on a map. Using some data I found online (which y
 with fiona.collection("shapefiles/statesp020.shp") as features:
         states = [shape(f['geometry']) for f in features]
 
-fig = pylab.figure(figsize=(24, 12), dpi=180)
+fig = plt.figure(figsize=(24, 12), dpi=180)
 ```
 
 Don't worry about this section too much, but it basically finds where the intersections occur to denote a dark outline. 
